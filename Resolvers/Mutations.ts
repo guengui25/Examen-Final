@@ -38,7 +38,7 @@ export const Mutation = {
 
             if(!mongoose.isValidObjectId(id)){throw new Error("Introduce un id de Mongoose valido")}
 
-            const deleteContact = await ContactModel.findByIdAndDelete({id});
+            const deleteContact = await ContactModel.findByIdAndDelete(id);
 
             if(!deleteContact){return false};
 
