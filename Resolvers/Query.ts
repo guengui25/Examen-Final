@@ -7,11 +7,12 @@ Hora actual de la capital del país de residencia.
 
 */
 
-import {Contact} from "../types.ts"
 
 import { GraphQLError } from "graphql";
 
 import {ContactModelType,ContactModel} from "../DB/contact.ts"
+
+import mongoose from "mongoose"
 
 export const Query = {
 
@@ -21,6 +22,9 @@ export const Query = {
         try{
 
             const {id} = args;
+            
+            if(!mongoose.isValidObjectId(id)){throw new Error("Introduce un id de Mongoose valido")}
+
 
             const Contact_db = await ContactModel.findById(id);
 
@@ -43,8 +47,4 @@ export const Query = {
             throw new GraphQLError(e);
         }
     }
-
 }
-
-
-

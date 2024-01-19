@@ -1,7 +1,7 @@
 # Examen-Final-Backend
 
 
-Objetivo:
+## Objetivo:
 Desarrollar un API en GraphQL que me permita gestionar una agenda de contactos.
 Los resolvers deben ser los siguientes
 addContact, cuyos parámetros deben ser:

@@ -4,6 +4,8 @@ import { check_telefono } from "../LIB/telefono.ts";
 
 import { GraphQLError } from "graphql";
 
+import mongoose from "mongoose"
+
 export const Mutation = {
 
     addContact:async (_:unknown,args:{nombre:string,telefono:string}):Promise<ContactModelType> => {
@@ -34,7 +36,9 @@ export const Mutation = {
 
             const {id} = args;
 
-            const deleteContact = await ContactModel.findByIdAndDelete(id);
+            if(!mongoose.isValidObjectId(id)){throw new Error("Introduce un id de Mongoose valido")}
+
+            const deleteContact = await ContactModel.findByIdAndDelete({id});
 
             if(!deleteContact){return false};
 
@@ -47,6 +51,8 @@ export const Mutation = {
     updateContact:async (_:unknown,args:{id:string,nombre:string,telefono:string}):Promise<ContactModelType> => {
         try{
             const {id,nombre,telefono} = args;
+
+            if(!mongoose.isValidObjectId(id)){throw new Error("Introduce un id de Mongoose valido")}
 
             const updateContact = await ContactModel.findById(id);
 
@@ -83,5 +89,4 @@ export const Mutation = {
             throw new GraphQLError(e);
         } 
     }
-
 }
