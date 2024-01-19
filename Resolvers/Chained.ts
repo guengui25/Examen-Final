@@ -7,7 +7,7 @@ import { get_hora } from "../LIB/get_hora.ts";
 
 export const Contact = {
 
-    hora:async (parent: ContactModelType):Promise<{hora:string}> => {
+    hora: async (parent: ContactModelType):Promise<{hora:string}> => {
         try{
             const hora = await get_hora(parent.pais);
 

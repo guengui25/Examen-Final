@@ -46,30 +46,39 @@ export const Mutation = {
     },
     updateContact:async (_:unknown,args:{id:string,nombre:string,telefono:string}):Promise<ContactModelType> => {
         try{
-
             const {id,nombre,telefono} = args;
 
             const updateContact = await ContactModel.findById(id);
 
             if(!updateContact) {throw new Error ("Contacto no encontrado")}
-
-            if(updateContact.telefono !== telefono){
-                const {pais,valid_telefono} = await check_telefono(telefono);
-
-                if(!valid_telefono) {throw new Error("Telefono no valido")}
-
-                updateContact.pais = pais;
-                updateContact.telefono = telefono;
+            
+            if(telefono){
+                if(updateContact.telefono !== telefono){
+                    const {pais,valid_telefono} = await check_telefono(telefono);
+    
+                    if(!valid_telefono) {throw new Error("Telefono no valido")}
+    
+                    updateContact.pais = pais;
+                    updateContact.telefono = telefono;
+                }
+            }else{
+                updateContact.telefono = updateContact.telefono
+                updateContact.pais = updateContact.pais
             }
+            
+            if(nombre){
+                if(updateContact.nombre !== nombre){
+                    updateContact.nombre = nombre;
 
-            if(updateContact.nombre !== nombre){
-                updateContact.nombre = nombre;
+                }
+            }else{
+                updateContact.nombre = updateContact.nombre
             }
-
+            
             updateContact.save();
 
             return updateContact;
-            
+
         }catch(e){
             throw new GraphQLError(e);
         } 

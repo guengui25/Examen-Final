@@ -17,6 +17,6 @@ type Mutation {
 
     addContact(nombre:String!,telefono:String!): Contact!
     deleteContact(id:ID!):Boolean! #Devuelve verdadero o false
-    updateContact(id:ID!,nombre:String!,telefono:String!): Contact! #(pero no es obligatorio que sean ambos).
+    updateContact(id:ID!,nombre:String,telefono:String): Contact! #(pero no es obligatorio que sean ambos).
 }
 `;

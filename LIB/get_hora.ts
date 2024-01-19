@@ -14,7 +14,9 @@ export const get_hora =async (pais:string):Promise<{hora:string}>  => {
 
     const capital_data = await fetch_capital.json();
 
-    const capital = capital_data.capital;
+    const capital = capital_data[0].capital;
+
+    console.log(capital);
 
     //Hora usando la capital
     
@@ -22,11 +24,13 @@ export const get_hora =async (pais:string):Promise<{hora:string}>  => {
 
     const fetch_hora = await fetch(url_hora,{headers:{'X-Api-Key':API_KEY}});
 
-    if(fetch_hora.status !== 200) { throw new Error("Error con la api de tiempo")}
+    if(fetch_hora.status !== 200) { throw new Error("Error con la api de hora")}
 
-    const hora_data = await fetch_capital.json();
+    const hora_data = await fetch_hora.json();
 
     const hora = hora_data.datetime;
+
+    console.log(hora)
 
     return hora;
 }
