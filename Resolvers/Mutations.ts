@@ -53,9 +53,23 @@ export const Mutation = {
 
             if(!updateContact) {throw new Error ("Contacto no encontrado")}
 
+            if(updateContact.telefono !== telefono){
+                const {pais,valid_telefono} = await check_telefono(telefono);
 
+                if(!valid_telefono) {throw new Error("Telefono no valido")}
+
+                updateContact.pais = pais;
+                updateContact.telefono = telefono;
+            }
+
+            if(updateContact.nombre !== nombre){
+                updateContact.nombre = nombre;
+            }
+
+            updateContact.save();
+
+            return updateContact;
             
-
         }catch(e){
             throw new GraphQLError(e);
         } 

@@ -6,6 +6,13 @@ import mongoose from "mongoose"
 
 import {typeDefs} from "./GraphQL/typeDefs.ts"
 
+import {Mutation} from "./Resolvers/Mutations.ts"
+
+import {Query} from "./Resolvers/Query.ts"
+
+import {Contact} from "./Resolvers/Chained.ts"
+
+
 try{
 
     const MONGO_URL  = Deno.env.get("MONGO_URL");
@@ -14,7 +21,7 @@ try{
 
     await mongoose.connect(MONGO_URL);
 
-    const resolvers = {};
+    const resolvers = {Query,Mutation,Contact};
 
     const server = new ApolloServer({
         typeDefs,
